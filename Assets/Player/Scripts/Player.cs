@@ -4,72 +4,24 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Animator anim;
+    public Inventory inventory;
 
-    public float speed = 2.5f;
-
-    private float input_x;
-    private float input_y;
-
-    private int orientation;
-
-    public bool isMoving = false;
-
-
-    public float timeAction;
-    public float startTimeAction;
-    
-    
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        isMoving = false;
+        inventory = new Inventory(25);
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    public void DropItem(Collectable item)
     {
-        input_x = Input.GetAxisRaw("Horizontal");
-        input_y = Input.GetAxisRaw("Vertical");
+        Vector3 spawnLocation = transform.position;
 
+        float randX = Random.Range(-1f, 1f);
+        float randY = Random.Range(-1f, 1f);
 
-        isMoving = (input_x != 0 || input_y != 0);
+        Vector3 spawnOffeset = new Vector3(randX, randY, 0f).normalized;
 
-        if (isMoving)
-        {
-            Vector3 movement = new Vector3(input_x, input_y, 0f);
-            
-            anim.SetFloat("Horizontal", movement.x);
-            anim.SetFloat("Vertical", movement.y);
-            transform.position += movement * (speed * Time.deltaTime);
-            
-            anim.SetFloat("lastMoveX",input_x);
-            anim.SetFloat("lastMoveY",input_y);
-        }
-        
-        anim.SetBool("isWalking", isMoving);
+        Collectable droppedItem = Instantiate(item, spawnLocation + spawnOffeset, Quaternion.identity);
 
-        if (timeAction <= 0)
-        {
-            anim.SetBool("isWater", false);
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                anim.SetBool("isWater", true);
-                timeAction = startTimeAction;
-            }
-
-        }
-        else
-        {
-            timeAction -= Time.deltaTime;
-        }
-        
-        
-        
+        droppedItem.rb2d.AddForce(spawnOffeset * 2f, ForceMode2D.Impulse);
     }
-    
-    
-    
 }
