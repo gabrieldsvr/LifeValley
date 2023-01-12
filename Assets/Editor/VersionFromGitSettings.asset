@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutomaticOnBuild: 1
   AllowLogOnEditor: 1
-  DefaultVersion: 0.1.0
+  DefaultVersion: 0.1.1
   GitInstalled: 1
   GitAvailable: 1
   GitAvailableTested: 1
