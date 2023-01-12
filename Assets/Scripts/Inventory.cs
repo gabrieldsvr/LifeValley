@@ -48,7 +48,6 @@ public class Inventory
          this.icon = item.GetIcon();
          count++;
       }
-
       public void AddItem(string itemName, Sprite icon, int maxAllowed)
       {
          this.itemName = itemName;

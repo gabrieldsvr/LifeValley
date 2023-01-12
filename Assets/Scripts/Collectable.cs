@@ -7,7 +7,7 @@ using UnityEngine;
 public class Collectable : MonoBehaviour
 {
     private Transform player;
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float speed = 3f;
     [SerializeField] private float pickUpDistance = 1.5f;
     [SerializeField] private float ttl = 10f;
     

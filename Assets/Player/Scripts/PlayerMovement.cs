@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private float startTime = 1f;
     public float deltaTime = 0;
 
-
+    private InventoryManager inventoryPlayer;
     private ToolsPlayerController toolsPlayerController;
 
     void Awake()
@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         toolsPlayerController = GetComponent<ToolsPlayerController>();
+        inventoryPlayer = GetComponent<InventoryManager>();
     }
 
     private void Update()
@@ -71,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!moving)
         {
+          
             if (Input.GetMouseButtonDown(0))
             {
                 acting = true;
@@ -102,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
         {
             toolsPlayerController.UseTool();
             if (toolsPlayerController.selectedItemName  != null
-                && (toolsPlayerController.selectedItemName != "SEED"))
+                && (!Seed.HasSeed(toolsPlayerController.selectedItemName)))
             {
                 VerifyTimeAction();
             }

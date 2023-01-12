@@ -13,7 +13,6 @@ public class InventoryManager : MonoBehaviour
    
    [Header("Toolbar")]
    public Inventory toolbar;
-
    public int toolbarSlotCount;
 
    private void Awake()

@@ -39,11 +39,12 @@ public class ToolsPlayerController : MonoBehaviour
     {
         selectedItemName = SetSelectedTool();
 
-        if (selectedItemName is { Length: > 0 })
+        if (selectedItemName is { Length: > 0 } )
         {
             
-            SetupToolAnimator();
+            
             Vector3Int pos = new Vector3Int((int)transform.position.x, (int)transform.position.y, 0);
+            SetupToolAnimator();
 
             switch (selectedItemName)
             {
@@ -78,13 +79,16 @@ public class ToolsPlayerController : MonoBehaviour
                     break;
                 
                 default:
+                    // Ação com semente na mão
                     if (Seed.HasSeed(selectedItemName))
                     {
                         if (GameManager.instace.TileManager.IsPlow(pos))
                         {
+                            GameManager.instace.UIManager.InventoryUIByName["Toolbar"].SelectedSlotLessOne( GameManager.instace.ToolbarUI.GetSelectedSlot().slotID);
                             Seed seed = GameManager.instace.SeedManager.GetSeedByName(Seed.RemoveSeedAndIdentifyType(selectedItemName ));
                             seed.Sow(pos);
                         }
+                        
                     }
                     break;
             }
@@ -92,6 +96,10 @@ public class ToolsPlayerController : MonoBehaviour
             
 
             animator.SetBool("acting", player.acting);
+        }
+        else
+        {
+            ResetActionsAnimator();
         }
     }
 
@@ -109,11 +117,15 @@ public class ToolsPlayerController : MonoBehaviour
         return null;
     }
 
-    private void SetupToolAnimator()
+    private void ResetActionsAnimator()
     {
         animator.SetBool("AxeSelected", false);
         animator.SetBool("WaterSelected", false);
         animator.SetBool("HoeSelected", false);
+    }
+    private void SetupToolAnimator()
+    {
+      ResetActionsAnimator();
 
         switch (selectedItemName)
         {

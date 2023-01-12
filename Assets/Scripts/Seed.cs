@@ -65,12 +65,12 @@ public class Seed : MonoBehaviour
         for (int i = 0; i < cropData.GetNumberOfDroppedItems(); i++)
         {
             Vector3 position = playerPositon;
-            position.x += 1f * Random.value - 1f / 2;
-            position.y += 1f * Random.value - 1f / 2;
+            position.x += 2f * Random.value - 1f / 2;
+            position.y += 2f * Random.value - 1f / 2;
 
             Item instantiate = Instantiate(cropData.GetItemDropped(), position, Quaternion.identity);
             instantiate.transform.position = position;
-            instantiate.rb2d.AddForce(position * 2f, ForceMode2D.Impulse);
+            instantiate.rb2d.AddForce(position * .1f, ForceMode2D.Impulse);
         }
     }
 }
