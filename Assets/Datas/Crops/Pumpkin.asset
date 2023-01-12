@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2e1752ebeabbe44b1ece432fe29d30, type: 3}
+  m_Name: Pumpkin
+  m_EditorClassIdentifier: 
+  timeToGrow: 10
+  itemDrop: {fileID: 5937008727622705707, guid: a56ab03d349b21c43ba3f79acff8ae1b, type: 3}
+  numItemDrop: 5
+  SpritesTiles:
+  - {fileID: 11400000, guid: dfb5b93250b2d3143b1a614a42639f58, type: 2}
+  - {fileID: 11400000, guid: 564a8382ec8abe247b0b203abf63b358, type: 2}
+  - {fileID: 11400000, guid: fa2afcff91a99be428d70a36a7d26156, type: 2}
+  - {fileID: 11400000, guid: ef0fd3f9e19a72142a1548c9178effb1, type: 2}
+  - {fileID: 11400000, guid: 6ea659e31e3fec54db09ac8cd2d60e74, type: 2}
+  - {fileID: 11400000, guid: 836d8fbb2fcb0a24a8bce91da6744b40, type: 2}
+  - {fileID: 11400000, guid: cf4b45896cadadf4fa9ea12630a026cc, type: 2}
+  growthStageTime: 02000000030000000400000008000000090000000a000000

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2e1752ebeabbe44b1ece432fe29d30, type: 3}
+  m_Name: Tomato
+  m_EditorClassIdentifier: 
+  timeToGrow: 12
+  growthStagesTimes: 01000000020000000500000007000000080000000a0000000c000000
+  spritesTilesGrow:
+  - {fileID: 11400000, guid: 9370cf6ff6d6b18459f19ca46971dd7d, type: 2}
+  - {fileID: 11400000, guid: dd239d98b2560fd4b92d8f494c050610, type: 2}
+  - {fileID: 11400000, guid: f9594e209c0fb1f4ab201e9307161336, type: 2}
+  - {fileID: 11400000, guid: 6960908754d8aed458e41f551854479b, type: 2}
+  - {fileID: 11400000, guid: 1280f512ab6c3e94e96b4f3ce8ce2c7b, type: 2}
+  - {fileID: 11400000, guid: 6b918ec9cbe3e6a49a25f132e1fe74ee, type: 2}
+  - {fileID: 11400000, guid: b2a4ef8677cb31147a61f7c8f24d1bd7, type: 2}
+  itemDropped: {fileID: 5937008727622705707, guid: 5ae667af6dca10d4c94f5f910abd5eee, type: 3}
+  numberOfDroppedItems: 2

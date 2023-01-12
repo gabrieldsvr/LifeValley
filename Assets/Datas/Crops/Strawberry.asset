@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2e1752ebeabbe44b1ece432fe29d30, type: 3}
+  m_Name: Strawberry
+  m_EditorClassIdentifier: 
+  timeToGrow: 10
+  itemDrop: {fileID: 5937008727622705707, guid: a56ab03d349b21c43ba3f79acff8ae1b, type: 3}
+  numItemDrop: 5
+  SpritesTiles:
+  - {fileID: 11400000, guid: 773812622e98ac5498d4341e7a10f620, type: 2}
+  - {fileID: 11400000, guid: ee8c49147db342f4ea62e8471c9ddbe1, type: 2}
+  - {fileID: 11400000, guid: 4536e0993ad34234588810123c64ac76, type: 2}
+  - {fileID: 11400000, guid: 8386bb66af6d2fa4a9c0470eb2f366ed, type: 2}
+  - {fileID: 11400000, guid: f4c3c0186dde11848b5e9ee969f5ce5e, type: 2}
+  - {fileID: 11400000, guid: 701ce7f162275f14584939dafe78b240, type: 2}
+  - {fileID: 11400000, guid: fc92ece15ab58834aad175452c7cda00, type: 2}
+  growthStageTime: 02000000030000000400000008000000090000000a000000

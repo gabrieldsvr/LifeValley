@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2e1752ebeabbe44b1ece432fe29d30, type: 3}
+  m_Name: Carrot
+  m_EditorClassIdentifier: 
+  timeToGrow: 10
+  growthStagesTimes: 0100000002000000040000000500000006000000080000000a000000
+  spritesTilesGrow:
+  - {fileID: 11400000, guid: 3258d08ccebb0094e97db6236cbe1f67, type: 2}
+  - {fileID: 11400000, guid: 888da47e8f5abad43a64aea6376ce1f8, type: 2}
+  - {fileID: 11400000, guid: 3b6281892c3a959489c699a164e1df30, type: 2}
+  - {fileID: 11400000, guid: dae4c7a97a97c7343b5a7e2e1c922aed, type: 2}
+  - {fileID: 11400000, guid: 366b8aa88e79f4e4b8245ef03bcd0bf2, type: 2}
+  - {fileID: 11400000, guid: 8409c1a397d32ca4b8b4158d93519d92, type: 2}
+  - {fileID: 11400000, guid: 50981ee5c07b07448bb30f5e1958c940, type: 2}
+  itemDropped: {fileID: 5937008727622705707, guid: 8c6e46300ba42704ab370e53e119ad08, type: 3}
+  numberOfDroppedItems: 4
