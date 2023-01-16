@@ -10,9 +10,10 @@ public class ToolsPlayerController : MonoBehaviour
 {
     private PlayerMovement player;
     private InventoryManager inventoryPlayer;
+    private Player pla;
     private Rigidbody2D rgb;
 
-    public string selectedItemName;
+    public Item selectedItem;
 
 
     [SerializeField] float offsetDistance = 1f;
@@ -24,6 +25,7 @@ public class ToolsPlayerController : MonoBehaviour
     {
         player = GetComponent<PlayerMovement>();
         inventoryPlayer = GetComponent<InventoryManager>();
+        pla = GetComponent<Player>();
         animator = GetComponent<Animator>();
         rgb = GetComponent<Rigidbody2D>();
     }
@@ -37,16 +39,15 @@ public class ToolsPlayerController : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     public void UseTool()
     {
-        selectedItemName = SetSelectedTool();
+        selectedItem = SetSelectedTool();
 
-        if (selectedItemName is { Length: > 0 } )
+        if (selectedItem)
         {
             
             
             Vector3Int pos = new Vector3Int((int)transform.position.x, (int)transform.position.y, 0);
             SetupToolAnimator();
-
-            switch (selectedItemName)
+            switch (selectedItem.GetName())
             {
                 case "AXE":
                     Vector2 position = rgb.position + player.lastMotionVector * offsetDistance;
@@ -80,16 +81,33 @@ public class ToolsPlayerController : MonoBehaviour
                 
                 default:
                     // Ação com semente na mão
-                    if (Seed.HasSeed(selectedItemName))
+                    if (selectedItem.GetType() == ItemData.ItemTypes.Seed)
                     {
                         if (GameManager.instace.TileManager.IsPlow(pos))
                         {
                             GameManager.instace.UIManager.InventoryUIByName["Toolbar"].SelectedSlotLessOne( GameManager.instace.ToolbarUI.GetSelectedSlot().slotID);
-                            Seed seed = GameManager.instace.SeedManager.GetSeedByName(Seed.RemoveSeedAndIdentifyType(selectedItemName ));
+                            Seed seed = GameManager.instace.SeedManager.GetSeedByName(Seed.RemoveSeedAndIdentifyType(selectedItem.GetName() ));
                             seed.Sow(pos);
                         }
                         
                     }
+                    if (Seed.HasSeed(selectedItem.GetName()))
+                    {
+                        if (GameManager.instace.TileManager.IsPlow(pos))
+                        {
+                            GameManager.instace.UIManager.InventoryUIByName["Toolbar"].SelectedSlotLessOne( GameManager.instace.ToolbarUI.GetSelectedSlot().slotID);
+                            Seed seed = GameManager.instace.SeedManager.GetSeedByName(Seed.RemoveSeedAndIdentifyType(selectedItem.GetName()  ));
+                            seed.Sow(pos);
+                        }
+                        
+                    }
+
+
+                    if (selectedItem.GetType() == ItemData.ItemTypes.Food)
+                    {
+                        pla.RecoverHunger(10);
+                    }
+                    
                     break;
             }
 
@@ -104,14 +122,15 @@ public class ToolsPlayerController : MonoBehaviour
     }
 
 
-    private string SetSelectedTool()
+    private Item SetSelectedTool()
     {
         var slotSelected = GameManager.instace.ToolbarUI.GetSelectedSlot();
-        selectedItemName  = inventoryPlayer.GetInventoryByName("Toolbar").Slots[slotSelected.slotID].itemName;
+        name  = inventoryPlayer.GetInventoryByName("Toolbar").Slots[slotSelected.slotID].itemName;
+        selectedItem = GameManager.instace.ItemManager.GetItemByName(name);
         
-        if (name != "")
+        if (selectedItem != null)
         {
-            return selectedItemName.ToUpper();
+            return selectedItem;
         }
 
         return null;
@@ -127,7 +146,7 @@ public class ToolsPlayerController : MonoBehaviour
     {
       ResetActionsAnimator();
 
-        switch (selectedItemName)
+        switch (selectedItem.GetName())
         {
             case "AXE":
                 animator.SetBool("AxeSelected", true);

@@ -113,7 +113,7 @@ public class CropsManager : TimeAgent
     
     private void Grow(CropTile cropTile)
     {
-        targetTilemap.SetTile(cropTile.tilePosition,
+        targetTilemap.SetTile(cropTile.tilePosition, 
             cropTile.Seed.GetCropData().GetSpriteTilesByIndex(cropTile.growStage));
     }
 

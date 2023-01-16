@@ -7,20 +7,24 @@ public class TimeManager : MonoBehaviour
 {
     
     const float secondsInDay = 86400f;
-    const float phaseLength = 120f; // 15 minutes chunk of time
+    const float phaseLength = 120f; // 15 minutes chunk of time 900
     const float phasesInDay = 96f; //secondsInDay divided by phaseLength
     
     
-    [SerializeField] float timeScale = 60f;
+    [SerializeField] float timeScale = 60f; //
     [SerializeField] float startAtTime = 28800f; // in seconds.
     [SerializeField] float morningTime = 28800f;
     public int days;
 
     private List<TimeAgent> agents;
     public float time;
+    
+    
+    [SerializeField] Player player;
     private void Awake()
     {
 
+        player = GetComponent<Player>();
         time = startAtTime;
         agents = new List<TimeAgent>();
     }
@@ -66,7 +70,7 @@ public class TimeManager : MonoBehaviour
         get { return time % 3600f / 60f; }
     }
     
-    int oldPhase = 0;
+    public int oldPhase = 0;
     private void TimeAgents()
     {
         
@@ -75,6 +79,10 @@ public class TimeManager : MonoBehaviour
 
         if (oldPhase != currentPhase) 
         {
+            GameManager.instace.Player.SpendStamina(1);
+            GameManager.instace.Player.SpendHunger(0.5f);
+            GameManager.instace.Player.SpendThirst(0.3f);
+            
             oldPhase = currentPhase;
             for (int i = 0; i < agents.Count; i++)
             {
@@ -82,6 +90,8 @@ public class TimeManager : MonoBehaviour
             }
         }
     }
+    
+    
     private int CalculatePhase()
     {
         return (int)(time / phaseLength) + (int)(days * phasesInDay);

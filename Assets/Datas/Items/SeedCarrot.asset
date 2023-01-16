@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: SeedCarrot
   icon: {fileID: 999652898, guid: 7334516ae09f7d840a4f0455c8a1eb82, type: 3}
+  type: 2

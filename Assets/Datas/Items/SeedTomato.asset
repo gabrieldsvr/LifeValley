@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: SeedTomato
   icon: {fileID: 1907196230, guid: 349273eff6009d04a8751d37c6af3984, type: 3}
+  type: 2

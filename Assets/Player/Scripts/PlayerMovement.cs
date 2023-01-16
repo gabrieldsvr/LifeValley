@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     private float startTime = 1f;
-    public float deltaTime = 0;
+    public float deltaTime = 0f;
 
     private InventoryManager inventoryPlayer;
     private ToolsPlayerController toolsPlayerController;
@@ -72,21 +72,20 @@ public class PlayerMovement : MonoBehaviour
 
         if (!moving)
         {
-          
             if (Input.GetMouseButtonDown(0))
             {
                 acting = true;
             }
         }
-        
     }
+
     void FixedUpdate()
     {
         if (!acting)
         {
             Move();
         }
-        
+
         if (!moving)
         {
             VerifyAction();
@@ -103,8 +102,8 @@ public class PlayerMovement : MonoBehaviour
         if (acting)
         {
             toolsPlayerController.UseTool();
-            if (toolsPlayerController.selectedItemName  != null
-                && (!Seed.HasSeed(toolsPlayerController.selectedItemName)))
+            if (toolsPlayerController.selectedItem != null
+                && (!Seed.HasSeed(toolsPlayerController.selectedItem.GetName())))
             {
                 VerifyTimeAction();
             }
@@ -113,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
                 acting = false;
             }
         }
+
         animator.SetBool("acting", acting);
     }
 

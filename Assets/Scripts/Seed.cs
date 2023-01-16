@@ -37,8 +37,7 @@ public class Seed : MonoBehaviour
     }
     
 
-    //ACTIONS
-
+    //ACTIONS 
 
     /// <summary>
     ///   <para>Faz com que a semente seja plantada</para>
@@ -47,15 +46,6 @@ public class Seed : MonoBehaviour
     {
         GameManager.instace.CropsManager.Sow(position, this);
     }
-
-    /// <summary>
-    ///   <para>Faz a semente passar para o proximo estagio</para>
-    /// </summary>
-    public void Grow()
-    {
-        // proximo estagio
-    }
-
 
     /// <summary>
     ///   <para>Faz a semente ser colhida</para>
