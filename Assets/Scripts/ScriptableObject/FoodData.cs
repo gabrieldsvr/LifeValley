@@ -7,6 +7,7 @@ public class FoodData : ScriptableObject
     [SerializeField] private float foodValue;
     [SerializeField] private float energyValue;
 
+    
     public string GetName()
     {
         return name;
