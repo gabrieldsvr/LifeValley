@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     public bool moving;
     public bool acting;
     bool running;
+    bool isBlocked;
+
 
 
     private float startTime = 1f;
@@ -31,6 +34,9 @@ public class PlayerMovement : MonoBehaviour
         toolsPlayerController = GetComponent<ToolsPlayerController>();
         inventoryPlayer = GetComponent<InventoryManager>();
     }
+
+    private void Start()
+    { }
 
     private void Update()
     {
@@ -72,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!moving)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E))
             {
                 acting = true;
             }
@@ -83,7 +89,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!acting)
         {
-            Move();
+            if (!isBlocked)
+            {
+                Move();
+            }
         }
 
         if (!moving)
@@ -133,4 +142,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rigidbody2d.velocity = Vector2.zero;
     }
+
+   
 }

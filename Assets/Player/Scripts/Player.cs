@@ -107,4 +107,10 @@ public class Player : MonoBehaviour
             DropItem(item);
         }
     }
+
+    public bool GetTagCollision()
+    {
+        return true;
+    }
+    
 }

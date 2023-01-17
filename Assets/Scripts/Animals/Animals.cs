@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Animals : MonoBehaviour
 {
@@ -24,13 +21,12 @@ public class Animals : MonoBehaviour
     public float moveDelay = 2f;
     private Vector3 targetPos;
 
-    private Collider2D collider;
     private bool impacto;
-
-    public Rigidbody2D rigidbody2D;
     public Animator animator;
+    public Rigidbody2D rigidbody2D;
 
 
+    public float distancePlayer;
 
     public enum Species
     {
@@ -45,9 +41,22 @@ public class Animals : MonoBehaviour
 
     private void Awake()
     {
-        collider = GetComponent<Collider2D>();
-        rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        distancePlayer = Vector2.Distance(transform.position, GameManager.instace.Player.transform.position);
+
+        if (distancePlayer > 2f)
+        {
+            rigidbody2D.isKinematic = false;
+        }
+        else
+        {
+            rigidbody2D.isKinematic = true;
+        }
     }
 
     public virtual void Eat(float mount)
@@ -68,28 +77,34 @@ public class Animals : MonoBehaviour
             float moveY = Random.Range(-2f, 2f);
 
             targetPos = new Vector3(transform.position.x + moveX, transform.position.y + moveY, transform.position.z);
-            
-           
 
-            while (transform.position != targetPos && impacto == false)
+
+            if (distancePlayer > 2f)
             {
-                Vector2 direction = (Vector2)targetPos - (Vector2)transform.position;
-                Vector3 lastPosition = transform.position;
-                
-                
-                
-                
-                if (Mathf.Abs(direction.x) != 0) {
-                    transform.position = Vector2.MoveTowards(transform.position, new Vector2(targetPos.x, transform.position.y), moveSpeed * Time.deltaTime);
-                } else {
-                    transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, targetPos.y), moveSpeed * Time.deltaTime);
+                while (transform.position != targetPos && impacto == false)
+                {
+                    Vector2 direction = (Vector2)targetPos - (Vector2)transform.position;
+                    Vector3 lastPosition = transform.position;
+
+
+                    if (Mathf.Abs(direction.x) != 0)
+                    {
+                        transform.position = Vector2.MoveTowards(transform.position,
+                            new Vector2(targetPos.x, transform.position.y), moveSpeed * Time.deltaTime);
+                    }
+                    else
+                    {
+                        transform.position = Vector2.MoveTowards(transform.position,
+                            new Vector2(transform.position.x, targetPos.y), moveSpeed * Time.deltaTime);
+                    }
+
+                    SetAnimation(lastPosition, transform.position);
+                    yield return null;
                 }
-                
-                SetAnimation(lastPosition,transform.position);
-                yield return null;
+
+                impacto = false;
             }
 
-            impacto = false;
             animator.SetBool("moving", false);
             yield return new WaitForSeconds(moveDelay);
         }
@@ -105,10 +120,12 @@ public class Animals : MonoBehaviour
         else if (lastPosition.x > position.x)
         {
             animator.SetFloat("horizontal", -1);
-        }  else
+        }
+        else
         {
             animator.SetFloat("horizontal", 0);
         }
+
         if (lastPosition.y < position.y)
         {
             animator.SetFloat("vertical", 1);
@@ -116,7 +133,8 @@ public class Animals : MonoBehaviour
         else if (lastPosition.y > position.y)
         {
             animator.SetFloat("vertical", -1);
-        }  else
+        }
+        else
         {
             animator.SetFloat("vertical", 0);
         }
@@ -127,5 +145,10 @@ public class Animals : MonoBehaviour
     {
         animator.SetBool("moving", false);
         impacto = true;
+    }
+
+    public Species GetSpecie()
+    {
+        return Specie;
     }
 }

@@ -32,9 +32,8 @@ public class ToolsPlayerController : MonoBehaviour
 
     private void Update()
     {
-        
     }
-    
+
 
     // ReSharper disable Unity.PerformanceAnalysis
     public void UseTool()
@@ -43,8 +42,6 @@ public class ToolsPlayerController : MonoBehaviour
 
         if (selectedItem)
         {
-            
-            
             Vector3Int pos = new Vector3Int((int)transform.position.x, (int)transform.position.y, 0);
             SetupToolAnimator();
             switch (selectedItem.GetName())
@@ -61,45 +58,67 @@ public class ToolsPlayerController : MonoBehaviour
                             break;
                         }
                     }
-                    break;
 
+                    break;
                 case "WATER":
                     Debug.Log("acoes agua");
                     break;
-
                 case "HOE":
 
                     if (GameManager.instace.TileManager.IsInteractable(pos))
                     {
                         GameManager.instace.CropsManager.Plow(pos);
                     }
+
                     if (GameManager.instace.CropsManager.VerifyIsLastStage(pos))
                     {
                         GameManager.instace.CropsManager.pick(pos);
                     }
+
                     break;
-                
+                case "BUCKET":
+          
+                    Collider2D[] objs = Physics2D.OverlapCircleAll(transform.position, sizeOfInteractableArea);
+
+                    foreach (var obj in objs)
+                    {
+                        if (obj.CompareTag("Animal"))
+                        {
+                            Animals i  = obj.GetComponent<Animals>();
+                            if (i.GetSpecie() == Animals.Species.Cow)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    
+                    
+                    break;
+
                 default:
                     // Ação com semente na mão
                     if (selectedItem.GetType() == ItemData.ItemTypes.Seed)
                     {
                         if (GameManager.instace.TileManager.IsPlow(pos))
                         {
-                            GameManager.instace.UIManager.InventoryUIByName["Toolbar"].SelectedSlotLessOne( GameManager.instace.ToolbarUI.GetSelectedSlot().slotID);
-                            Seed seed = GameManager.instace.SeedManager.GetSeedByName(Seed.RemoveSeedAndIdentifyType(selectedItem.GetName() ));
+                            GameManager.instace.UIManager.InventoryUIByName["Toolbar"]
+                                .SelectedSlotLessOne(GameManager.instace.ToolbarUI.GetSelectedSlot().slotID);
+                            Seed seed = GameManager.instace.SeedManager.GetSeedByName(
+                                Seed.RemoveSeedAndIdentifyType(selectedItem.GetName()));
                             seed.Sow(pos);
                         }
-                        
                     }
+
                     if (Seed.HasSeed(selectedItem.GetName()))
                     {
                         if (GameManager.instace.TileManager.IsPlow(pos))
                         {
-                            GameManager.instace.UIManager.InventoryUIByName["Toolbar"].SelectedSlotLessOne( GameManager.instace.ToolbarUI.GetSelectedSlot().slotID);
-                            Seed seed = GameManager.instace.SeedManager.GetSeedByName(Seed.RemoveSeedAndIdentifyType(selectedItem.GetName()  ));
+                            GameManager.instace.UIManager.InventoryUIByName["Toolbar"]
+                                .SelectedSlotLessOne(GameManager.instace.ToolbarUI.GetSelectedSlot().slotID);
+                            Seed seed = GameManager.instace.SeedManager.GetSeedByName(
+                                Seed.RemoveSeedAndIdentifyType(selectedItem.GetName()));
                             seed.Sow(pos);
                         }
-                        
                     }
 
 
@@ -107,11 +126,9 @@ public class ToolsPlayerController : MonoBehaviour
                     {
                         pla.RecoverHunger(10);
                     }
-                    
+
                     break;
             }
-
-            
 
             animator.SetBool("acting", player.acting);
         }
@@ -125,9 +142,9 @@ public class ToolsPlayerController : MonoBehaviour
     private Item SetSelectedTool()
     {
         var slotSelected = GameManager.instace.ToolbarUI.GetSelectedSlot();
-        name  = inventoryPlayer.GetInventoryByName("Toolbar").Slots[slotSelected.slotID].itemName;
+        name = inventoryPlayer.GetInventoryByName("Toolbar").Slots[slotSelected.slotID].itemName;
         selectedItem = GameManager.instace.ItemManager.GetItemByName(name);
-        
+
         if (selectedItem != null)
         {
             return selectedItem;
@@ -142,9 +159,10 @@ public class ToolsPlayerController : MonoBehaviour
         animator.SetBool("WaterSelected", false);
         animator.SetBool("HoeSelected", false);
     }
+
     private void SetupToolAnimator()
     {
-      ResetActionsAnimator();
+        ResetActionsAnimator();
 
         switch (selectedItem.GetName())
         {
